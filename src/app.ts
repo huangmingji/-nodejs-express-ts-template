@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express';
-import routers from './router';
 import { settings } from './settings';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import createError from 'http-errors';
+import { RoutingControllers } from './utils/routing-controllers'
 
 const app = express();
 const port = 3000;
@@ -24,8 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const router = express.Router();
-app.use(routers(router))
+RoutingControllers(app);
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
@@ -43,6 +42,8 @@ app.use(function (err: any, req: Request, res: Response, next: any) {
   res.render('error');
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+export default app;
+
+// app.listen(port, () => {
+//   console.log(`Server is running on http://localhost:${port}`);
+// });

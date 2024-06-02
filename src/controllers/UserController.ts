@@ -1,10 +1,15 @@
 import { Request, Response } from 'express';
-import User  from '../models/user';
-import UserService from '../services/user';
+import User  from '../models/User';
+import UserService from '../services/UserService';
 import { success, error } from '../utils/json-result'
+import { Get, Post, Put, Delete, Controller} from '../utils/routing-controllers'
 
+@Controller('/api/user')
 class UserController {
 
+    constructor() { }
+
+    @Post('/')
     public async create(req: Request, res: Response): Promise<any> {
         try {
             var user = new User(
@@ -15,7 +20,6 @@ class UserController {
                 req.body.avatar == null || req.body.avatar == undefined ? '' : req.body.avatar, 
                 req.body.email,
                 req.body.phone_number, 
-                req.body.enabled == null || req.body.enabled == undefined ? true : req.body.enabled, 
                 req.body.creator_id == null || req.body.creator_id == undefined ? 0 : req.body.creator_id);
     
             if (user.account == null || user.account == '') {
@@ -58,15 +62,20 @@ class UserController {
         }
     }
 
+    @Get('/')
     public get(req: Request, res: Response): any {
-        // 处理获取用户的请求
+        res.send('users');
     }
 
+    @Put('/')
     public update(req: Request, res: Response): any {
+        res.send('update user');
         // 处理更新用户的请求
     }
 
+    @Delete('/')
     public delete(req: Request, res: Response): void {
+        res.send('delete user');
         // 处理删除用户的请求
     }
 }

@@ -1,4 +1,4 @@
-import User from "../models/user";
+import User from "../models/User";
 import { connection } from '../utils/db';
 import PasswordSecurity from '../utils/password-security';
 import { SnowflakeId } from "../utils/snowflakeid";
@@ -16,9 +16,9 @@ class UserService {
                 user.creation_time = new Date();
                 user.last_modifier_id = user.creator_id;
                 user.last_modification_time = new Date();
-                connection.query('insert into user (id, account, password, secret_key, nick_name, avatar, email, phone_number, enabled, creator_id, creation_time, last_modifier_id, last_modification_time)'
-                    + 'values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                    [user.id, user.account, user.password, user.secret_key, user.nick_name, user.avatar, user.email, user.phone_number, user.enabled, user.creator_id, user.creation_time, user.last_modifier_id, user.last_modification_time],
+                connection.query('insert into user (id, account, password, secret_key, nick_name, avatar, email, phone_number, creator_id, creation_time, last_modifier_id, last_modification_time)'
+                    + 'values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    [user.id, user.account, user.password, user.secret_key, user.nick_name, user.avatar, user.email, user.phone_number, user.creator_id, user.creation_time, user.last_modifier_id, user.last_modification_time],
                     function (error: any, result: any) {
                         if (error) {
                             console.log('Error: ' + error.message);
@@ -104,8 +104,8 @@ class UserService {
     public async update(user: User): Promise<User> {
         return new Promise((resolve, reject) => {
             try {
-                connection.query('update user set account = ?, password = ?, secret_key = ?, name = ?, avatar = ?, email = ?, phone_number = ?, enabled = ?, creator_id = ?, creation_time = ?, last_modifier_id = ?, last_modification_time = ? where id = ?',
-                    [user.account, user.password, user.secret_key, user.nick_name, user.avatar, user.email, user.phone_number, user.enabled, user.last_modifier_id, user.last_modification_time, user.id], function (error, result) {
+                connection.query('update user set account = ?, password = ?, secret_key = ?, name = ?, avatar = ?, email = ?, phone_number = ?, creator_id = ?, creation_time = ?, last_modifier_id = ?, last_modification_time = ? where id = ?',
+                    [user.account, user.password, user.secret_key, user.nick_name, user.avatar, user.email, user.phone_number, user.last_modifier_id, user.last_modification_time, user.id], function (error, result) {
                         if (error) {
                             console.log('Error: ' + error.message);
                             reject(error)
