@@ -1,3 +1,5 @@
+import UserDto from "../models/UserDto";
+
 class User {
     public id!: bigint;
     public account: string;

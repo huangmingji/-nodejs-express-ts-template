@@ -3,7 +3,7 @@ import { settings } from './settings';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import createError from 'http-errors';
-import { RoutingControllers } from './utils/routing-controllers'
+import { RoutingControllers } from './utils/RoutingControllers'
 
 const app = express();
 const port = 3000;

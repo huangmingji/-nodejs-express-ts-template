@@ -124,11 +124,11 @@ const RoutingControllers = (app: Express) => {
     const dir = path.resolve(__dirname, "../controllers");
     //   获取目录下的所有文件名
     const files = fs.readdirSync(dir);
-    console.log(files)
+    // console.log(files)
     files.forEach((file) => {
         // 动态加载模块
         const module = require(path.join(dir, file));
-        console.log(path.join(dir, file));
+        // console.log(path.join(dir, file));
         // 模块是通过esmodule的格式导出的，所以需要通过default获取
         const Constructor = module.default;
         // 初始化Controller

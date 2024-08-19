@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import User  from '../models/User';
+import User  from '../domain/User';
 import UserService from '../services/UserService';
-import { success, error } from '../utils/json-result'
-import { Get, Post, Put, Delete, Controller} from '../utils/routing-controllers'
+import { success, error } from '../utils/JsonResult'
+import { Get, Post, Put, Delete, Controller} from '../utils/RoutingControllers'
 
 @Controller('/api/user')
 class UserController {
@@ -53,9 +53,8 @@ class UserController {
                 error(res, "手机号已存在");
                 return;
             }
-            UserService.create(user).then(result => {
-                success(res, result);
-            });
+            const result = await UserService.create(user);
+            success(res, result);
         } catch (err: any) {
             console.error(err);
             error(res, err.message);

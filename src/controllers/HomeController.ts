@@ -1,4 +1,4 @@
-import { Controller, Get, Middleware } from "../utils/routing-controllers";
+import { Controller, Get, Middleware } from "../utils/RoutingControllers";
 import { Request, Response } from 'express';
 
 @Controller('/')

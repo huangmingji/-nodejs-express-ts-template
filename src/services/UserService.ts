@@ -1,12 +1,13 @@
-import User from "../models/User";
-import { connection } from '../utils/db';
-import PasswordSecurity from '../utils/password-security';
-import { SnowflakeId } from "../utils/snowflakeid";
+import User from "../domain/User";
+import UserDto from "../models/UserDto";
+import { connection } from '../utils/DBHelper';
+import PasswordSecurity from '../utils/PasswordSecurity';
+import { SnowflakeId } from "../utils/SnowflakeId";
 
 class UserService {
 
-    public async create(user: User): Promise<User> {
-        return new Promise<User>((resolve, reject) => {
+    public async create(user: User): Promise<UserDto> {
+        return new Promise<UserDto>((resolve, reject) => {
             try {
                 const passwordSecurity = new PasswordSecurity();
                 const secret_key = passwordSecurity.createSalt();
@@ -24,7 +25,7 @@ class UserService {
                             console.log('Error: ' + error.message);
                             reject(error);
                         } else {
-                            resolve(user);
+                            resolve(new UserDto(user.id, user.account, user.nick_name, user.avatar, user.email, user.phone_number, user.creator_id));
                         }
                     });
             } catch (e) {
