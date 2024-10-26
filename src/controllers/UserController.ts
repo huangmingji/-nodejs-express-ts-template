@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import User  from '../domain/User';
 import UserService from '../services/UserService';
 import { success, error } from '../utils/JsonResult'
 import { Get, Post, Put, Delete, Controller} from '../utils/RoutingControllers'
+import CreateOrUpdateUserDto from '../models/CreateOrUpdateUserDto'
 
 @Controller('/api/user')
 class UserController {
@@ -12,15 +12,15 @@ class UserController {
     @Post('/')
     public async create(req: Request, res: Response): Promise<any> {
         try {
-            var user = new User(
-                req.body.account, 
-                req.body.password, 
-                req.body.secret_key, 
-                req.body.nick_name, 
-                req.body.avatar == null || req.body.avatar == undefined ? '' : req.body.avatar, 
+            var user = new CreateOrUpdateUserDto(
+                req.body.account,
+                req.body.avatar == null || req.body.avatar == undefined ? '' : req.body.avatar,
                 req.body.email,
-                req.body.phone_number, 
-                req.body.creator_id == null || req.body.creator_id == undefined ? 0 : req.body.creator_id);
+                req.body.nick_name,
+                req.body.password, 
+                req.body.phone_number,
+                req.body.creator_id == null || req.body.creator_id == undefined ? 0 : req.body.creator_id,
+                0);
     
             if (user.account == null || user.account == '') {
                 error(res, "用户名不能为空");
@@ -36,21 +36,6 @@ class UserController {
             }
             if (user.phone_number == null || user.phone_number == '') {
                 error(res, "手机号不能为空");
-                return;
-            }
-            var existingUser = await UserService.getByAccount(user.account);
-            if (existingUser != null) {
-                error(res, "用户已存在");
-                return
-            }
-            existingUser = await UserService.getByEmail(user.email);
-            if (existingUser != null) {
-                error(res, "邮箱已存在");
-                return;
-            }
-            existingUser = await UserService.getByPhoneNumber(user.phone_number);
-            if (existingUser != null) {
-                error(res, "手机号已存在");
                 return;
             }
             const result = await UserService.create(user);

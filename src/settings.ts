@@ -10,6 +10,13 @@ export const settings = {
         password: '123456',
         database: 'app'
     },
+    pg: {
+        host: 'localhost',
+        port: 5432,
+        user: 'postgres',
+        password: '123456',
+        database: 'app'
+    },
     snowflake: {
         databaseid: 1,
         workerid: 1,

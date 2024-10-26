@@ -2,11 +2,11 @@ POST http://localhost:3000/api/user HTTP/1.1
 Content-Type: application/json
 
 {
-    "account": "admin12r3rrr45",
+    "account": "admin1233r3rrr45",
     "password": "21212121255",
     "nick_name": "admin12rrr3454",
-    "email": "23334rr4rr32@qq.com",
-    "phone_number": "1542323rrr34555"
+    "email": "23334rr4rfffr3332@qq.com",
+    "phone_number": "154233323rrr34555"
 }
 
 ###
